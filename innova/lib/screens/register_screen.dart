@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:innova/constants/input_decoration.dart';
+import 'package:http/http.dart' as http;
 
 enum UserType {
   driver,
@@ -135,7 +135,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         final firebaseUser =
                             await _auth.createUserWithEmailAndPassword(
                                 email: email.trim(), password: password);
-
+                            var url = 'http://uottahack2020.heroku.com/users/'
+                                'drivers?email=$email&firstName=$firstName&lastName=$lastName&userType=$userType&uid=${firebaseUser.user.uid}';
+                            var response = await http.post(
+                                url,
+                                body: {
+                                  'email': email,
+                                  'firstName': firstName,
+                                  'lastName': lastName,
+                                  'userType': userType.toString()
+                                }
+                            );
+                            print(response.statusCode);
                         if (firebaseUser != null) {
                           Navigator.pushNamed(context, 'homeScreen');
                         }

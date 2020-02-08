@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:http/http.dart' as http;
+import 'package:innova/widgets/pill_button.dart';
 
 enum UserType {
   driver,
@@ -39,6 +40,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     size: 150,
                   ),
                 ),
+              ),
+              Text.rich(
+                  TextSpan(
+                      text: 'Register as driver'
+                  )
               ),
               Row(children: <Widget>[
                 Expanded(
@@ -86,42 +92,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     password = value;
                   },
                 ),
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ListTile(
-                        leading: Radio(
-                          value: UserType.business,
-                          groupValue: userType,
-                          onChanged: (UserType value) {
-                            setState(() {
-                              userType = value;
-                            });
-                          },
-                        ),
-                      title: Text(
-                        'Business'
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: ListTile(
-                        leading: Radio(
-                          value: UserType.driver,
-                          groupValue: userType,
-                          onChanged: (UserType value) {
-                            setState(() {
-                              userType = value;
-                            });
-                          },
-                        ),
-                      title: Text(
-                        'Driver'
-                      ),
-                    ),
-                  )
-                ],
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),

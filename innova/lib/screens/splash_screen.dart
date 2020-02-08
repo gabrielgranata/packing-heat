@@ -38,12 +38,28 @@ class SplashScreen extends StatelessWidget {
                       Navigator.pushNamed(context, 'login_screen');
                     },
                   ),
-                  PillButton(
-                    title: 'Register',
-                    colour: Colors.lightBlueAccent,
-                    onPressed: (){
-                      Navigator.pushNamed(context, 'register_screen');
-                    },
+                  Text.rich(
+                    TextSpan(
+                      text: 'Register'
+                    )
+                  ),
+                  Column (
+                    children: <Widget>[
+                      PillButton(
+                        title: 'Register as Driver',
+                        colour: Colors.lightBlueAccent,
+                        onPressed: (){
+                          Navigator.pushNamed(context, 'register_screen');
+                        },
+                      ),
+                        PillButton(
+                        title: 'Register as Business',
+                        colour: Colors.lightBlueAccent,
+                        onPressed: (){
+                          Navigator.pushNamed(context, 'company_register_screen');
+                        },
+                      )
+                    ]
                   )
                 ],
               ),

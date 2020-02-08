@@ -4,6 +4,7 @@ import 'package:innova/screens/register_screen.dart';
 import 'package:innova/screens/login_screen.dart';
 import 'package:innova/screens/company_registration_screen.dart';
 import 'package:innova/screens/home_screen_business.dart';
+import 'package:innova/screens/maps_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,13 +14,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      initialRoute: 'splash_screen',
+      initialRoute: 'maps_screen',
       routes: {
         'splash_screen': (context) => SplashScreen(),
         'login_screen': (context) => LoginScreen(),
         'register_screen': (context) => RegisterScreen(),
         'company_register_screen': (context) => CompanyRegistrationScreen(),
-        'company_home_screen': (context) => BusinessHomeScreen()
+        'company_home_screen': (context) => BusinessHomeScreen(),
+        'maps_screen': (context) => MapsScreen(),
       }
     );
   }

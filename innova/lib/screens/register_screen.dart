@@ -116,7 +116,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   'userType': userType.toString()
                                 }
                             );
-                            print(response.statusCode);
                         if (firebaseUser != null) {
                           Navigator.pushNamed(context, 'homeScreen');
                         }

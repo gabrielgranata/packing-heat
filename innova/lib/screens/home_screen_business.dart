@@ -9,9 +9,9 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
 
   int _currentIndex = 0;
   final List<Widget> _children = [
-    PlaceHolder(Colors.red),
-    PlaceHolder(Colors.blue),
-    PlaceHolder(Colors.green),
+    PlaceHolder("Deliveries"),
+    PlaceHolder("Messages"),
+    PlaceHolder("Profile"),
   ];
 
   @override
@@ -28,7 +28,7 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.home),
-            title: new Text('Home'),
+            title: new Text('Deliveries'),
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.mail),
@@ -46,14 +46,20 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
 
 class PlaceHolder extends StatelessWidget {
 
-  PlaceHolder(this.colour);
+  PlaceHolder(this.title);
 
-  final Color colour;
+//  final Color colour;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: colour,
+      child: Text.rich(
+         TextSpan(
+           style: TextStyle(color: Colors.black.withOpacity(1.0)),
+           text: title,
+         )
+        )
     );
   }
 }

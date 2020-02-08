@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1098902235369",
+    "firebase_url": "https://uottahack2020-18263.firebaseio.com",
+    "project_id": "uottahack2020-18263",
+    "storage_bucket": "uottahack2020-18263.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098902235369:android:247e1b849ae35652996878",
+        "android_client_info": {
+          "package_name": "com.example.innova"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098902235369-ium9up42k4rc1bpb8bbrih92t1qcnmg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJpYIBgX24nvmXG4wq32f_STCSsta-qBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098902235369-ium9up42k4rc1bpb8bbrih92t1qcnmg5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1098902235369-tot4dq9otp9r1e9ti9tu4p5bnggsi2j4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.innova"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

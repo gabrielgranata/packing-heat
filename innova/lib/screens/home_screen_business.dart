@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class BusinessHomeScreen extends StatefulWidget {
   @override
@@ -9,7 +11,7 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
 
   int _currentIndex = 0;
   final List<Widget> _children = [
-    PlaceHolder("Deliveries"),
+    DeliveryView(),
     PlaceHolder("Messages"),
     PlaceHolder("Profile"),
   ];
@@ -61,5 +63,112 @@ class PlaceHolder extends StatelessWidget {
          )
         )
     );
+  }
+}
+
+class DeliveryView extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold (
+      body: SafeArea(
+        child: Padding (
+          padding: EdgeInsets.fromLTRB(10, 200, 10, 10),
+          child: CarouselSlider(
+            height: 600.0,
+            enableInfiniteScroll: false,
+            initialPage: 1,
+            items: [DeliveryList(0), DeliveryList(1), DeliveryList(2)].map((i) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                          color: Colors.amber
+                      ),
+                      child: DeliveryList(0)
+                  );
+                },
+              );
+            }).toList(),
+        )
+      )
+      )
+    );
+  }
+}
+
+class DeliveryList extends StatelessWidget {
+
+  DeliveryList(this.currentIndex);
+
+  final int currentIndex;
+
+  @override
+  Widget build(BuildContext context){
+    return ListView (
+      /* TODO: get all delivery items from db for current status,
+          make new DeliveryListItem for each and display */
+      padding: const EdgeInsets.all(8),
+      children: <Widget> [
+//        Text(
+//          if()
+//        ),
+        DeliveryListItem("new", "1aerb2d", new DateTime(2020, 01, 01),
+          new DateTime(2020, 01, 01), 13.23, 5.00, 2.3, "box", "fred"),
+        DeliveryListItem("in progress", "sdkf3b2d", new DateTime(2030, 01, 01),
+            new DateTime(2020, 01, 01), 4.99, 1.3, 6.0, "box", "susie"),
+        DeliveryListItem("completed", "1b2rb2d", new DateTime(2020, 01, 01),
+            new DateTime(2020, 01, 01), 1.32, 18.9, 6.0, "box", "bobo")
+      ]
+    );
+  }
+}
+
+class DeliveryListItem extends StatelessWidget {
+
+  DeliveryListItem(
+      this.status,
+      this.trackingNumber,
+      this.dateRequested,
+      this.datePickedUp,
+      this.rateForDelivery,
+      this.weight,
+      this.volume,
+      this.itemType,
+      this.deliveryPerson
+  );
+
+  final String status;
+  final String trackingNumber;
+  final DateTime dateRequested;
+  final DateTime datePickedUp;
+  final double rateForDelivery;
+  final double weight;
+  final double volume;
+  final String itemType;
+  final String deliveryPerson; //TODO: Later change to class DeliveryPerson
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container (
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        ),
+        height: 75,
+        margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
+        child:  Row (
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget> [
+            Text ('$trackingNumber'),
+            Text ('$dateRequested'),
+            Text ('$deliveryPerson')
+          ]
+        ),
+      );
+
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:innova/screens/splash_screen.dart';
 import 'package:innova/screens/register_screen.dart';
 import 'package:innova/screens/login_screen.dart';
+import 'package:innova/screens/company_registration_screen.dart';
+import 'package:innova/screens/home_screen_business.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
         'splash_screen': (context) => SplashScreen(),
         'login_screen': (context) => LoginScreen(),
         'register_screen': (context) => RegisterScreen(),
+        'company_register_screen': (context) => CompanyRegistrationScreen(),
+        'company_home_screen': (context) => BusinessHomeScreen()
       }
     );
   }

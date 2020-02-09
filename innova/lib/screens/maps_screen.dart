@@ -12,7 +12,7 @@ class MapsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MapSample(startingAddress: '75+Laurier+Ave+E,+Ottawa,+ON+K1N+6N5', endingAddress: '200+University+Ave+W,+Waterloo,+ON+N2L+3G1',
+      home: MapSample(startingAddress: '59+Spark+St,+Ottawa,+ON', endingAddress: '200+University+Ave+W,+Waterloo,+ON+N2L+3G1',
       legs:[
         {
           'distance': {
@@ -309,11 +309,11 @@ class MapsScreen extends StatelessWidget {
 
 class MapSample extends StatefulWidget {
 
-  MapSample({this.startingAddress, this.endingAddress, this.legs, this.startingLng, this.startingLat});
+  MapSample({this.startingAddress, this.endingAddress, this.legs});
   final String startingAddress;
   final String endingAddress;
-  final double startingLat;
-  final double startingLng;
+  final double startingLat = 45.424770;
+  final double startingLng = -75.686060;
   final List legs;
 
   @override

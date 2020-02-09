@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum UserType {
   driver,
@@ -23,7 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   UserType userType = UserType.business;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  final Firestore db = Firestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,11 +121,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 email: email.trim(), password: password);
 
                                 var postData = {
-                                  email: email,
-                                  firstName: firstName,
-                                  lastName: lastName,
-                                  userType: 'driver'
+                                  "email": email,
+                                  "firstName": firstName,
+                                  "lastName": lastName,
+                                  "userType": 'driver'
                                 };
+
+                                db.collection('users').document('users').collection('drivers').document(firebaseUser.user.uid).setData(postData);
                         if (firebaseUser != null) {
                           Navigator.pushNamed(context, 'driver_home_screen');
                         }

@@ -4,6 +4,7 @@ import 'package:innova/widgets/pill_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:innova/screens/home_screen_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum UserType {
   driver,
@@ -25,6 +26,7 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
   UserType userType = UserType.business;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final Firestore db = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -102,26 +104,15 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
 
                       }
                       final firebaseUser = await _auth.createUserWithEmailAndPassword(email: companyEmail, password: password);
-                      var url = 'http://uottahack2020.herokuapp.com/users/'
-                          'business?email=$companyEmail&name=$companyName&userType=$userType&uid=${firebaseUser.user.uid}';
-                      var response = await http.post(
-                          url,
-                          body: {
-                            'email': companyEmail,
-                            'name': companyName,
-                            'userType': userType.toString(),
-                            'location': addressLine1
-                          }
-                      );
-                      print(response.statusCode);
+
+                      var data = {
+                        'email': companyEmail,
+                        'name': companyName,
+                        'userType': 'business',
+                        'location': addressLine1
+                      };
+                      db.collection('users').document('users').collection('business').document(firebaseUser.user.uid).setData(data);
                       if (firebaseUser != null) {
-                        // Navigator.pushNamed(context, 'homeScreen');
-                        // TODO: POST REQUEST TO DB TO ADD USER
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreenController(userType: 'business')
-                            ));
                        // Navigator.pushNamed(context, 'home_screen', arguments: Arguments(companyEmail));
                         Navigator.pushNamed(context, 'company_home_screen');
                       }

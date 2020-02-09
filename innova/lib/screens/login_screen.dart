@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:innova/screens/home_screen_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String password;
   String passwordConfirm;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final Firestore db = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -59,16 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 15,
               ),
-              TextField(
-                obscureText: false,
-                textAlign: TextAlign.center,
-                decoration: InputDecorationWrapper(hint: 'confirm password').getInputDecoration(),
-                onChanged: (value) {
-                  setState(() {
-                    passwordConfirm = value;
-                  });
-                },
-              ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 child: Material(
@@ -76,23 +68,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(30.0),
                   child: MaterialButton(
                     onPressed: () async {
-                      if (password != passwordConfirm) {
-                        print('passwords dont match');
-                      } else {
                         try {
                           final firebaseUser = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
+
+                          var document = await db.collection('users').document('users').collection('drivers').document(firebaseUser.user.uid).get();
+                          var userType = document.data['userType'];
                           if (firebaseUser != null) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomeScreenController(userType: 'business')
+                                  builder: (context) => HomeScreenController(userType: userType)
                                 ));
-                            Navigator.pushNamed(context, 'home_screen', arguments: Arguments(email));
                           }
                         } catch (e) {
                           print(e);
                         }
-                      }
                     },
                     minWidth: 200.0,
                     height: 42.0,

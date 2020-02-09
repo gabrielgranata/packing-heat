@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:http/http.dart' as http;
-import 'package:innova/widgets/pill_button.dart';
 
 enum UserType {
   driver,
@@ -20,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String password;
   String firstName;
   String lastName;
+  String passwordConfirm;
   UserType userType = UserType.business;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -93,6 +93,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              TextField(
+                obscureText: false,
+                textAlign: TextAlign.center,
+                decoration: InputDecorationWrapper(hint: 'confirm password').getInputDecoration(),
+                onChanged: (value) {
+                  setState(() {
+                    passwordConfirm = value;
+                  });
+                },
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 child: Material(
@@ -105,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         final firebaseUser =
                             await _auth.createUserWithEmailAndPassword(
                                 email: email.trim(), password: password);
-                            var url = 'http://uottahack2020.heroku.com/users/'
+                            var url = 'http://uottahack2020.herokuapp.com/users/'
                                 'drivers?email=$email&firstName=$firstName&lastName=$lastName&userType=$userType&uid=${firebaseUser.user.uid}';
                             var response = await http.post(
                                 url,
@@ -116,9 +129,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   'userType': userType.toString()
                                 }
                             );
-                            print(response.statusCode);
                         if (firebaseUser != null) {
-                          Navigator.pushNamed(context, 'homeScreen');
+                          Navigator.pushNamed(context, 'home_screen');
                         }
                       } catch (e) {
                         print(e);

@@ -97,7 +97,12 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
                 colour: Colors.lightBlueAccent,
                 onPressed:() async {
                     try {
-                      final firebaseUser = await _auth.createUserWithEmailAndPassword(email: companyEmail.trim(), password: password);
+                      try {
+                        companyEmail = companyEmail.trim();
+                      } catch (e) {
+
+                      }
+                      final firebaseUser = await _auth.createUserWithEmailAndPassword(email: companyEmail, password: password);
                       var url = 'http://uottahack2020.heroku.com/users/'
                           'business?email=$companyEmail&name=$companyName&userType=$userType&uid=${firebaseUser.user.uid}';
                       var response = await http.post(

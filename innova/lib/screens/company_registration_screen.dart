@@ -103,7 +103,7 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
 
                       }
                       final firebaseUser = await _auth.createUserWithEmailAndPassword(email: companyEmail, password: password);
-                      var url = 'http://uottahack2020.heroku.com/users/'
+                      var url = 'http://uottahack2020.herokuapp.com/users/'
                           'business?email=$companyEmail&name=$companyName&userType=$userType&uid=${firebaseUser.user.uid}';
                       var response = await http.post(
                           url,

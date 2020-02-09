@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:innova/widgets/pill_button.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class NewDeliveryForm extends StatelessWidget {
   String status;
-  String trackingNumber;
+  int trackingNumber;
   DateTime dateRequested;
   DateTime datePickedUp;
   double rateForDelivery;
@@ -54,12 +55,6 @@ class NewDeliveryForm extends StatelessWidget {
                 },
               ),
               TextField(
-                decoration: InputDecorationWrapper(hint: 'Delivery person').getInputDecoration(),
-                onChanged: (value) {
-                  deliveryPerson = value;
-                },
-              ),
-              TextField(
                 decoration: InputDecorationWrapper(hint: 'Source address').getInputDecoration(),
                 onChanged: (value) {
                   sourceAddress = value;
@@ -75,23 +70,23 @@ class NewDeliveryForm extends StatelessWidget {
                 title: 'Create request',
                 colour: Colors.deepOrange[200],
                 onPressed: () async {
-                  Navigator.pushNamed(context, 'company_home_screen');
-                    var url = 'http://uottahack2020.herokuapp.com/items';
+//                  Navigator.pushNamed(context, 'company_home_screen');
+                    var url = 'http://10.196.26.249:3000/items/';
                     var response = await http.post(
                       url,
-                      body: {
-                        status: "new",
-                        trackingNumber: "12345abc", //TODO: generate tracking num
-                        dateRequested: DateTime.now(),
-                        datePickedUp: null,
-                        rateForDelivery: 1.99, //TODO: calculate based on weight/vol
-                        weight: this.weight,
-                        volume: this.volume,
-                        itemType: this.itemType,
-                        deliveryPerson: "",
-                        sourceAddress: this.sourceAddress,
-                        deliveryAddress: this.deliveryAddress
-                      }
+                      body: json.encode({
+                        "status": "new",
+                        "trackingNumber" : 12345, //TODO: generate tracking num
+                        "dateRequested" : DateTime.now().millisecondsSinceEpoch,
+                        "datePickedUp" : DateTime.now().millisecondsSinceEpoch,
+                        "weight" : this.weight,
+                        "volume" : this.volume,
+                        "itemType" : this.itemType,
+                        "rateForDelivery" : 1.99, //TODO: calculate based on weight/vol
+                        "deliveryPerson" : "henry",
+                        "sourceAddy" : this.sourceAddress,
+                        "deliveryAddr" : this.deliveryAddress
+                      })
                     );
                     print(response.statusCode);
                 }
@@ -101,5 +96,9 @@ class NewDeliveryForm extends StatelessWidget {
         )
       )
     );
+  }
+
+  String getNextTrackingNumber(){
+
   }
 }

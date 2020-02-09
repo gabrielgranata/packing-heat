@@ -117,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
                             );
                         if (firebaseUser != null) {
-                          Navigator.pushNamed(context, 'homeScreen');
+                          Navigator.pushNamed(context, 'home_screen');
                         }
                       } catch (e) {
                         print(e);

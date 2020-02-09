@@ -12,7 +12,6 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     DeliveryView(),
-    PlaceHolder("Messages"),
     PlaceHolder("Profile"),
   ];
 
@@ -50,10 +49,6 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
           BottomNavigationBarItem(
             icon: new Icon(Icons.home),
             title: new Text('Deliveries'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.mail),
-            title: new Text('Messages'),
           ),
           BottomNavigationBarItem(
               icon: new Icon(Icons.person),

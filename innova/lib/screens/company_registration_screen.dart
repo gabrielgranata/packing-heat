@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:innova/widgets/pill_button.dart';
 import 'package:http/http.dart' as http;
-import 'package:innova/widgets/pill_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:innova/screens/home_screen_controller.dart';
 

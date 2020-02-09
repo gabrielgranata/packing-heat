@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      initialRoute: 'company_home_screen',
+      initialRoute: 'driver_home_screen',
       routes: {
         'splash_screen': (context) => SplashScreen(),
         'login_screen': (context) => LoginScreen(),
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         'new_delivery': (context) => NewDeliveryForm(),
         'driver_home_screen': (context) => DriverHomeScreen(),
         'maps_screen': (context) => MapsScreen(),
-        'home_screen': (context) => HomeScreenController(),
+//        'home_screen': (context) => HomeScreenController(),
       }
     );
   }

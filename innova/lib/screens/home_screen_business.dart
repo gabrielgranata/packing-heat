@@ -34,7 +34,7 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
       dynamic data = snapshot.data;
       route.add(data);
     }
-    db.collection('routes').document().setData({'routes': route});
+    db.collection('routes').document('route').setData({'routes': route});
   }
 
   @override

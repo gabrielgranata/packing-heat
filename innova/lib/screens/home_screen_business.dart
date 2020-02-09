@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase/firebase_io.dart';
+import 'package:innova/widgets/pill_button.dart';
 
 class BusinessHomeScreen extends StatefulWidget {
   @override
@@ -19,7 +19,26 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[_currentIndex],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+         Container(
+           margin: EdgeInsets.only(top: 100.0),
+           child: PillButton(
+             colour: Colors.deepOrange[200],
+             title: 'New Delivery',
+             onPressed: () {
+               Navigator.pushNamed(context, 'new_delivery');
+             },
+           ),
+          ),
+          Expanded(
+            child: Container (
+              child: _children[_currentIndex],
+            ),
+          )
+        ]
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
@@ -73,7 +92,7 @@ class DeliveryView extends StatelessWidget {
     return Scaffold (
       body: SafeArea(
         child: Padding (
-          padding: EdgeInsets.fromLTRB(10, 200, 10, 10),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: CarouselSlider(
             height: 600.0,
             enableInfiniteScroll: false,
@@ -85,7 +104,7 @@ class DeliveryView extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(horizontal: 5.0),
                       decoration: BoxDecoration(
-                          color: Colors.amber
+                          color: Colors.blue[200]
                       ),
                       child: DeliveryList(0)
                   );

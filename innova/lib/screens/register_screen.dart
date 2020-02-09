@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:http/http.dart' as http;
-import 'package:innova/widgets/pill_button.dart';
 
 enum UserType {
   driver,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase/firebase_io.dart';
 
 class BusinessHomeScreen extends StatefulWidget {
   @override

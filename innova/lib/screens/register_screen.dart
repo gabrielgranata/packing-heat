@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:innova/widgets/pill_button.dart';
 
 enum UserType {
   driver,
@@ -28,29 +29,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[200],
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Flexible(
-                child: Hero(
-                  tag: 'logo',
-                  child: FlutterLogo(
-                    size: 150,
-                  ),
-                ),
-              ),
               Text.rich(
                   TextSpan(
-                      text: 'Register as driver'
+                      text: 'Register as driver',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
                   )
               ),
               Row(children: <Widget>[
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(right: 10),
+                    margin: EdgeInsets.fromLTRB(15, 15, 5, 0),
                     child: TextField(
                       textAlign: TextAlign.center,
                       decoration: InputDecorationWrapper(hint: 'First Name').getInputDecoration(),
@@ -62,7 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(left: 10),
+                    margin: EdgeInsets.fromLTRB(5, 15, 15, 0),
                     child: TextField(
                       textAlign: TextAlign.center,
                       decoration: InputDecorationWrapper(hint: 'Last Name').getInputDecoration(),
@@ -83,8 +78,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       email = value;
                     }),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+              Container (
+                margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
                 child: TextField(
                   obscureText: false,
                   textAlign: TextAlign.center,
@@ -94,26 +89,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              TextField(
-                obscureText: false,
-                textAlign: TextAlign.center,
-                decoration: InputDecorationWrapper(hint: 'confirm password').getInputDecoration(),
-                onChanged: (value) {
-                  setState(() {
-                    passwordConfirm = value;
-                  });
-                },
+              Container (
+                margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                child: TextField(
+                  obscureText: false,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecorationWrapper(hint: 'Confirm password').getInputDecoration(),
+                  onChanged: (value) {
+                    setState(() {
+                      passwordConfirm = value;
+                    });
+                  },
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
-                child: Material(
-                  elevation: 5.0,
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: MaterialButton(
+                  child: PillButton(
+                    title: 'Register',
+                    colour: Colors.lightBlueAccent,
                     onPressed: () async {
                       try {
                         final firebaseUser =
@@ -135,16 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         print(e);
                       }
                     },
-                    minWidth: 200.0,
-                    height: 42.0,
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
                   ),
-                ),
               ),
             ],
           ),

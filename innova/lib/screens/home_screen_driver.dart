@@ -12,26 +12,21 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
-    DeliveryView(),
+    DriverDeliveryList(),
     PlaceHolder("Profile"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Container (
+      body: Container(
+        child:
+            Container (
               child: _children[_currentIndex],
             ),
-          )
-        ]
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
-//          getData();
           setState(() {
             _currentIndex = index;
           });
@@ -51,8 +46,69 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
     );
   }
 
-  void getData(){
-//    print(Firestore.instance.collection('items').snapshots());
-  }
-
 }
+
+class DriverDeliveryList extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      color: Colors.lightBlue[200],
+      child: ListView (
+        /* TODO: get all delivery items from db for current status,
+            make new DeliveryListItem for each and display */
+          padding: const EdgeInsets.all(8),
+          children: <Widget> [
+            Container(
+              margin: EdgeInsets.fromLTRB(15, 50, 15, 10),
+              child: Text.rich(
+                TextSpan(
+                  text: 'Available delivery jobs',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
+              ),
+            ),
+            DriverDeliveryListItem(13.23, 5.00, 2.3, "Small Box"),
+            DriverDeliveryListItem(15.00, 5.00, 2.3, "Large Box"),
+           ]
+      ),
+    );
+  }
+}
+
+class DriverDeliveryListItem extends StatelessWidget {
+
+  DriverDeliveryListItem(
+      this.rateForDelivery,
+      this.weight,
+      this.volume,
+      this.itemType,
+      );
+
+  final double rateForDelivery;
+  final double weight;
+  final double volume;
+  final String itemType;
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container (
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        ),
+        height: 75,
+        margin: const EdgeInsets.fromLTRB(5, 5, 5, 10),
+        child:  Row (
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget> [
+              Text ('$itemType'),
+              Text ('Rate: $rateForDelivery')
+            ]
+        ),
+      );
+
+  }
+}
+

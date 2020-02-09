@@ -33,67 +33,89 @@ class NewDeliveryForm extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text.rich(
-                TextSpan(
-                  text: 'Request a new delivery'
+              Container(
+                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Request a new delivery',
+                    style: TextStyle(color: Colors.black, fontSize: 24),
+                  ),
                 ),
               ),
-              TextField(
-                decoration: InputDecorationWrapper(hint: 'Item type').getInputDecoration(),
-                onChanged: (value) {
-                  itemType = value;
-                },
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextField(
+                  decoration: InputDecorationWrapper(hint: 'Item type').getInputDecoration(),
+                  onChanged: (value) {
+                    itemType = value;
+                  },
+                ),
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecorationWrapper(hint: 'Weight').getInputDecoration(),
-                onChanged: (value) {
-                  weight = double.parse(value);
-                  print(weight is double);
-                },
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecorationWrapper(hint: 'Weight').getInputDecoration(),
+                  onChanged: (value) {
+                    weight = double.parse(value);
+                    print(weight is double);
+                  },
+                ),
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecorationWrapper(hint: 'Volume').getInputDecoration(),
-                onChanged: (value) {
-                  volume = double.parse(value);
-                  print(volume is double);
-                },
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecorationWrapper(hint: 'Volume').getInputDecoration(),
+                  onChanged: (value) {
+                    volume = double.parse(value);
+                    print(volume is double);
+                  },
+                ),
               ),
-              TextField(
-                decoration: InputDecorationWrapper(hint: 'Source address').getInputDecoration(),
-                onChanged: (value) {
-                  sourceAddress = value;
-                },
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextField(
+                  decoration: InputDecorationWrapper(hint: 'Source address').getInputDecoration(),
+                  onChanged: (value) {
+                    sourceAddress = value;
+                  },
+                ),
               ),
-              TextField(
-                decoration: InputDecorationWrapper(hint: 'Delivery address').getInputDecoration(),
-                onChanged: (value) {
-                  deliveryAddress = value;
-                },
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextField(
+                  decoration: InputDecorationWrapper(hint: 'Delivery address').getInputDecoration(),
+                  onChanged: (value) {
+                    deliveryAddress = value;
+                  },
+                ),
               ),
-              PillButton(
-                title: 'Create request',
-                colour: Colors.deepOrange[200],
-                onPressed: () async {
+              Container(
+                margin: EdgeInsets.all(10),
+                child: PillButton(
+                  title: 'Create request',
+                  colour: Colors.deepOrange[200],
+                  onPressed: () async {
 
-                  var data = {
-                    'status': 'new',
-                    'weight': this.weight,
-                    'volume': this.volume,
-                    'itemType': this.itemType,
-                    'rateForDelivery': 1.99,
-                    'deliveryPerson': null,
-                    'sourceAddress': this.sourceAddress,
-                    'deliveryAddress': this.deliveryAddress
-                  };
+                    var data = {
+                      'status': 'new',
+                      'weight': this.weight,
+                      'volume': this.volume,
+                      'itemType': this.itemType,
+                      'rateForDelivery': 1.99,
+                      'deliveryPerson': null,
+                      'sourceAddress': this.sourceAddress,
+                      'deliveryAddress': this.deliveryAddress
+                    };
 
-                  var newItem = db.collection('items').document().setData(data);
+                    var newItem = db.collection('items').document().setData(data);
 //                  Navigator.pop(context, newItem);
-////                  Navigator.pushNamed(context, 'company_home_screen');
+                    Navigator.pushNamed(context, 'company_home_screen');
 
 
-                }
+                  }
+                ),
               )
             ]
           )

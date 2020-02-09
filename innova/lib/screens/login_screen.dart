@@ -82,7 +82,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         try {
                           final firebaseUser = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
                           if (firebaseUser != null) {
-                            // TODO: POST REQUEST TO DB TO ADD USER
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

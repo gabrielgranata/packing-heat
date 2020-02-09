@@ -130,7 +130,6 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
                       print(e);
                     }
 
-
                 }
               )
             ]

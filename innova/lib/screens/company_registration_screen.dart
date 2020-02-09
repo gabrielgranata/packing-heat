@@ -105,7 +105,8 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
                           body: {
                             'email': companyEmail,
                             'name': companyName,
-                            'userType': userType.toString()
+                            'userType': userType.toString(),
+                            'location': addressLine1
                           }
                       );
                       print(response.statusCode);

@@ -76,14 +76,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(30.0),
                   child: MaterialButton(
                     onPressed: () async {
-
                       if (password != passwordConfirm) {
                         print('passwords dont match');
                       } else {
                         try {
                           final firebaseUser = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
                           if (firebaseUser != null) {
-
                             // TODO: POST REQUEST TO DB TO ADD USER
                             Navigator.push(
                                 context,
@@ -96,8 +94,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           print(e);
                         }
                       }
-
-
                     },
                     minWidth: 200.0,
                     height: 42.0,

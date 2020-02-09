@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:innova/widgets/pill_button.dart';
+import 'package:http/http.dart' as http;
 
 class NewDeliveryForm extends StatelessWidget {
   String status;
@@ -41,6 +42,7 @@ class NewDeliveryForm extends StatelessWidget {
                 decoration: InputDecorationWrapper(hint: 'Weight').getInputDecoration(),
                 onChanged: (value) {
                   weight = double.parse(value);
+                  print(weight is double);
                 },
               ),
               TextField(
@@ -48,6 +50,7 @@ class NewDeliveryForm extends StatelessWidget {
                 decoration: InputDecorationWrapper(hint: 'Volume').getInputDecoration(),
                 onChanged: (value) {
                   volume = double.parse(value);
+                  print(volume is double);
                 },
               ),
               TextField(
@@ -71,9 +74,26 @@ class NewDeliveryForm extends StatelessWidget {
               PillButton(
                 title: 'Create request',
                 colour: Colors.deepOrange[200],
-                onPressed: () {
+                onPressed: () async {
                   Navigator.pushNamed(context, 'company_home_screen');
-
+                    var url = 'http://uottahack2020.herokuapp.com/items';
+                    var response = await http.post(
+                      url,
+                      body: {
+                        status: "new",
+                        trackingNumber: "12345abc", //TODO: generate tracking num
+                        dateRequested: DateTime.now(),
+                        datePickedUp: null,
+                        rateForDelivery: 1.99, //TODO: calculate based on weight/vol
+                        weight: this.weight,
+                        volume: this.volume,
+                        itemType: this.itemType,
+                        deliveryPerson: "",
+                        sourceAddress: this.sourceAddress,
+                        deliveryAddress: this.deliveryAddress
+                      }
+                    );
+                    print(response.statusCode);
                 }
               )
             ]

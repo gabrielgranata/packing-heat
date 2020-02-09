@@ -19,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String password;
   String firstName;
   String lastName;
+  String passwordConfirm;
   UserType userType = UserType.business;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -92,6 +93,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              TextField(
+                obscureText: false,
+                textAlign: TextAlign.center,
+                decoration: InputDecorationWrapper(hint: 'confirm password').getInputDecoration(),
+                onChanged: (value) {
+                  setState(() {
+                    passwordConfirm = value;
+                  });
+                },
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 child: Material(
@@ -104,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         final firebaseUser =
                             await _auth.createUserWithEmailAndPassword(
                                 email: email.trim(), password: password);
-                            var url = 'http://uottahack2020.heroku.com/users/'
+                            var url = 'http://uottahack2020.herokuapp.com/users/'
                                 'drivers?email=$email&firstName=$firstName&lastName=$lastName&userType=$userType&uid=${firebaseUser.user.uid}';
                             var response = await http.post(
                                 url,

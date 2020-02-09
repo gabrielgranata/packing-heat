@@ -5,6 +5,7 @@ import 'package:innova/screens/login_screen.dart';
 import 'package:innova/screens/company_registration_screen.dart';
 import 'package:innova/screens/home_screen_business.dart';
 import 'package:innova/screens/new_delivery.dart';
+import 'package:innova/screens/home_screen_driver.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         'company_register_screen': (context) => CompanyRegistrationScreen(),
         'company_home_screen': (context) => BusinessHomeScreen(),
         'new_delivery': (context) => NewDeliveryForm(),
+        'driver_home_screen': (context) => DriverHomeScreen()
       }
     );
   }

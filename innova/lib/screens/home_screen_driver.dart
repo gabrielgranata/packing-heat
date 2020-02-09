@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:innova/screens/home_screen_business.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +15,8 @@ final apiKey = 'AIzaSyCCa30P9-jhu-MNAF8GlZ1hP5nSF1Lz_jo';
 class _DriverHomeScreenState extends State<DriverHomeScreen> {
 
   int _currentIndex = 0;
+  List legs;
+
   final Firestore db = Firestore.instance;
 
   final List<Widget> _children = [
@@ -34,7 +38,7 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
           RaisedButton(
             onPressed: () async {
               await getRoute();
-              Navigator.pushNamed(context, 'maps_screen');
+              Navigator.pushNamed(context, 'maps_screen', arguments: MapArgs(legs));
             },
             child: Text("Start Driving"),
           )
@@ -63,8 +67,8 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
   }
 
   Future<void> getRoute() async {
-    DocumentSnapshot route = await db.collection('routes').document('route').get();
-    List routeList = route['routes'];
+    DocumentSnapshot route = await db.collection('routes').document('routes').get();
+    List routeList = route['route'];
 
     String startingAddress = routeList[0]['sourceAddress'];
     List addressStrings = [
@@ -75,11 +79,25 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
       addressStrings.add(route['deliveryAddress']);
     }
 
-    var queryUrl = 'https://maps.googleapis.com/maps/api/directions/json?origin=$startingAddress&destination=${addressStrings[addressStrings.length-1]}'
-        '&key=$apiKey&waypoints=$addressStrings';
+    var addressString = "";
+    for (var string in addressStrings) {
+      addressString+= "$string|";
+    }
+
+    var queryUrl = 'https://maps.googleapis.com/maps/api/directions/json?origin=59+Spark+St,+Ottawa,+ON&destination=100+Louis+Pasteur+Pvt,+Ottawa+ON'
+        '&key=$apiKey&waypoints=$addressString';
 
     var response = await http.get(queryUrl);
-    print(response.body);
+    var jsonBody = jsonDecode(response.body);
+    legs = jsonBody['routes'][0]['legs'];
+
   }
 
+}
+
+
+class MapArgs {
+  List legs;
+
+  MapArgs(this.legs);
 }

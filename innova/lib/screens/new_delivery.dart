@@ -3,6 +3,7 @@ import 'package:innova/constants/input_decoration.dart';
 import 'package:innova/widgets/pill_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:math' as Math;
 
 class NewDeliveryForm extends StatelessWidget {
   String status;
@@ -17,6 +18,7 @@ class NewDeliveryForm extends StatelessWidget {
   String deliveryPerson;
   String sourceAddress;
   String deliveryAddress;
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,24 +73,24 @@ class NewDeliveryForm extends StatelessWidget {
                 colour: Colors.deepOrange[200],
                 onPressed: () async {
 //                  Navigator.pushNamed(context, 'company_home_screen');
-                    var url = 'http://10.196.26.249:3000/items/';
-                    var response = await http.post(
-                      url,
-                      body: json.encode({
-                        "status": "new",
-                        "trackingNumber" : 12345, //TODO: generate tracking num
-                        "dateRequested" : DateTime.now().millisecondsSinceEpoch,
-                        "datePickedUp" : DateTime.now().millisecondsSinceEpoch,
-                        "weight" : this.weight,
-                        "volume" : this.volume,
-                        "itemType" : this.itemType,
-                        "rateForDelivery" : 1.99, //TODO: calculate based on weight/vol
-                        "deliveryPerson" : "henry",
-                        "sourceAddy" : this.sourceAddress,
-                        "deliveryAddr" : this.deliveryAddress
-                      })
-                    );
-                    print(response.statusCode);
+
+//                    var response = await http.post(
+//                      url,
+//                      body: json.encode({
+//                        "status": "new",
+//                        "trackingNumber" : 12345, //TODO: generate tracking num
+//                        "dateRequested" : DateTime.now().millisecondsSinceEpoch,
+//                        "datePickedUp" : DateTime.now().millisecondsSinceEpoch,
+//                        "weight" : this.weight,
+//                        "volume" : this.volume,
+//                        "itemType" : this.itemType,
+//                        "rateForDelivery" : 1.99, //TODO: calculate based on weight/vol
+//                        "deliveryPerson" : "henry",
+//                        "sourceAddy" : this.sourceAddress,
+//                        "deliveryAddr" : this.deliveryAddress
+//                      })
+//                    );
+//                    print(response.statusCode);
                 }
               )
             ]
@@ -96,9 +98,5 @@ class NewDeliveryForm extends StatelessWidget {
         )
       )
     );
-  }
-
-  String getNextTrackingNumber(){
-
   }
 }

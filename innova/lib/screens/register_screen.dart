@@ -118,17 +118,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         final firebaseUser =
                             await _auth.createUserWithEmailAndPassword(
                                 email: email.trim(), password: password);
-                            var url = 'http://uottahack2020.herokuapp.com/users/'
-                                'drivers?email=$email&firstName=$firstName&lastName=$lastName&userType=$userType&uid=${firebaseUser.user.uid}';
-                            var response = await http.post(
-                                url,
-                                body: {
-                                  'email': email,
-                                  'firstName': firstName,
-                                  'lastName': lastName,
-                                  'userType': userType.toString()
-                                }
-                            );
+
+                                var postData = {
+                                  email: email,
+                                  firstName: firstName,
+                                  lastName: lastName,
+                                  userType: 'driver'
+                                };
                         if (firebaseUser != null) {
                           Navigator.pushNamed(context, 'driver_home_screen');
                         }

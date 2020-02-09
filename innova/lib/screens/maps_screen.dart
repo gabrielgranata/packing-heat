@@ -12,7 +12,7 @@ class MapsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MapSample(startingLat: 33.8160679, startingLng: -117.9225314,
+      home: MapSample(startingAddress: '75+Laurier+Ave+E,+Ottawa,+ON+K1N+6N5', endingAddress: '200+University+Ave+W,+Waterloo,+ON+N2L+3G1',
       legs:[
         {
           'distance': {
@@ -309,7 +309,9 @@ class MapsScreen extends StatelessWidget {
 
 class MapSample extends StatefulWidget {
 
-  MapSample({this.startingLat, this.startingLng, this.legs});
+  MapSample({this.startingAddress, this.endingAddress, this.legs, this.startingLng, this.startingLat});
+  final String startingAddress;
+  final String endingAddress;
   final double startingLat;
   final double startingLng;
   final List legs;
@@ -329,6 +331,9 @@ class MapSampleState extends State<MapSample> {
 
   int currentMarker = 1;
 
+  String startingAddress;
+  String endingAddress;
+
   double startingLat;
   double startingLng;
 
@@ -337,6 +342,8 @@ class MapSampleState extends State<MapSample> {
     // TODO: implement initState
 
     super.initState();
+    startingAddress = this.widget.startingAddress;
+    endingAddress = this.widget.endingAddress;
     startingLat = this.widget.startingLat;
     startingLng = this.widget.startingLng;
     steps = this.widget.legs;
@@ -353,6 +360,9 @@ class MapSampleState extends State<MapSample> {
     }
 
     return new Scaffold(
+      appBar: AppBar(
+
+      ),
       body: GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
@@ -373,9 +383,17 @@ class MapSampleState extends State<MapSample> {
           }
         },
         label: Text('Next'),
-        icon: Icon(Icons.directions_boat),
+        icon: getIcon('driving'),
       ),
     );
+  }
+
+  Icon getIcon(String mode) {
+    if (mode == 'driving') {
+      return Icon(Icons.directions_car);
+    } else {
+      return Icon(Icons.directions_boat);
+    }
   }
 
   getLegs() async {
@@ -392,6 +410,7 @@ class MapSampleState extends State<MapSample> {
     });
   }
 
+
   void addMarker(MarkerInfo markerInfoObject) {
     // generate marker ID
     final MarkerId markerId = MarkerId('markerId');
@@ -406,7 +425,6 @@ class MapSampleState extends State<MapSample> {
 
     );
     setState(() {
-      var currentLength = markers.length;
       markers.add(marker);
       currentMarkerInfo.add(markerInfoObject);
     });

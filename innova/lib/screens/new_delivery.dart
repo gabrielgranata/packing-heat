@@ -4,7 +4,6 @@ import 'package:innova/widgets/pill_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:math' as Math;
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewDeliveryForm extends StatelessWidget {
   String status;
@@ -92,7 +91,6 @@ class NewDeliveryForm extends StatelessWidget {
 //                      })
 //                    );
 //                    print(response.statusCode);
-                    var res = await postItem();
                 }
               )
             ]
@@ -100,32 +98,5 @@ class NewDeliveryForm extends StatelessWidget {
         )
       )
     );
-  }
-
-  String getNextTrackingNumber(){
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < 25; i++)
-      text += possible.indexOf(Math.floor(Math.random() * possible.length));
-
-    return text;
-  }
-
-  void postItem(){
-    // var url = 'http://10.196.26.249:3000/items/';
-    Firestore.instance.collection('delivery').document().set({
-      "status": "new",
-      "trackingNumber" : getNextTrackingNumber(), //TODO: generate tracking num
-      "dateRequested" : DateTime.now().millisecondsSinceEpoch,
-      "datePickedUp" : DateTime.now().millisecondsSinceEpoch,
-      "weight" : this.weight,
-      "volume" : this.volume,
-      "itemType" : this.itemType,
-      "rateForDelivery" : 1.99, //TODO: calculate based on weight/vol
-      "deliveryPerson" : "henry",
-      "sourceAddy" : this.sourceAddress,
-      "deliveryAddr" : this.deliveryAddress
-    });
   }
 }

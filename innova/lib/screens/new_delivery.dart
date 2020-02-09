@@ -89,26 +89,10 @@ class NewDeliveryForm extends StatelessWidget {
                   };
 
                   var newItem = db.collection('items').document().setData(data);
-                  Navigator.pop(context, newItem);
-//                  Navigator.pushNamed(context, 'company_home_screen');
+//                  Navigator.pop(context, newItem);
+////                  Navigator.pushNamed(context, 'company_home_screen');
 
-//                    var response = await http.post(
-//                      url,
-//                      body: json.encode({
-//                        "status": "new",
-//                        "trackingNumber" : 12345, //TODO: generate tracking num
-//                        "dateRequested" : DateTime.now().millisecondsSinceEpoch,
-//                        "datePickedUp" : DateTime.now().millisecondsSinceEpoch,
-//                        "weight" : this.weight,
-//                        "volume" : this.volume,
-//                        "itemType" : this.itemType,
-//                        "rateForDelivery" : 1.99, //TODO: calculate based on weight/vol
-//                        "deliveryPerson" : "henry",
-//                        "sourceAddy" : this.sourceAddress,
-//                        "deliveryAddr" : this.deliveryAddress
-//                      })
-//                    );
-//                    print(response.statusCode);
+
                 }
               )
             ]

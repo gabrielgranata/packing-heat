@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:innova/widgets/pill_button.dart';
@@ -10,15 +11,30 @@ class BusinessHomeScreen extends StatefulWidget {
 
 class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
 
+  FirebaseAuth auth = FirebaseAuth.instance;
+  Firestore db = Firestore.instance;
+
   int _currentIndex = 0;
   final List<Widget> _children = [
     DeliveryView(),
     PlaceHolder("Profile"),
   ];
 
-  void createRoute() {
+  Future<void> createRoute() async {
 
+    var currentUser = await auth.currentUser();
+    var currentUserInfo = await db.collection('users').document('users').collection('business').document(currentUser.uid).get();
+    QuerySnapshot documents = await db.collection('items').getDocuments();
 
+    List<DocumentSnapshot> documentSnaps = documents.documents;
+
+    var route = new List();
+
+    for (var snapshot in documentSnaps) {
+      dynamic data = snapshot.data;
+      route.add(data);
+    }
+    db.collection('routes').document().setData({'routes': route});
   }
 
   @override
@@ -45,7 +61,7 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
                 await createRoute();
               }
             )
-          )
+          ),
           Expanded(
             child: Container (
               child: _children[_currentIndex],

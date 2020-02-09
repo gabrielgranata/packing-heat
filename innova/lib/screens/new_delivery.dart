@@ -3,7 +3,7 @@ import 'package:innova/constants/input_decoration.dart';
 import 'package:innova/widgets/pill_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:math';
+import 'dart:math' as Math;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewDeliveryForm extends StatelessWidget {
@@ -20,7 +20,6 @@ class NewDeliveryForm extends StatelessWidget {
   String sourceAddress;
   String deliveryAddress;
 
-  final Firestore db = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -108,16 +107,16 @@ class NewDeliveryForm extends StatelessWidget {
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     for (var i = 0; i < 25; i++)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
+      text += possible.indexOf(Math.floor(Math.random() * possible.length));
 
     return text;
   }
 
   void postItem(){
     // var url = 'http://10.196.26.249:3000/items/';
-    db.collection('delivery').document().set({
+    Firestore.instance.collection('delivery').document().set({
       "status": "new",
-      "trackingNumber" : genNextTrackingNumber(), //TODO: generate tracking num
+      "trackingNumber" : getNextTrackingNumber(), //TODO: generate tracking num
       "dateRequested" : DateTime.now().millisecondsSinceEpoch,
       "datePickedUp" : DateTime.now().millisecondsSinceEpoch,
       "weight" : this.weight,

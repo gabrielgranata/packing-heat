@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:innova/widgets/pill_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BusinessHomeScreen extends StatefulWidget {
   @override
@@ -14,6 +15,11 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
     DeliveryView(),
     PlaceHolder("Profile"),
   ];
+
+  void createRoute() {
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +37,15 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
              },
            ),
           ),
+          Container(
+            child: PillButton(
+              colour: Colors.deepOrange[200],
+              title: 'Create Route',
+              onPressed: () async {
+                await createRoute();
+              }
+            )
+          )
           Expanded(
             child: Container (
               child: _children[_currentIndex],

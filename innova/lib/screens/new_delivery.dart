@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:innova/constants/input_decoration.dart';
 import 'package:innova/widgets/pill_button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:math' as Math;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewDeliveryForm extends StatelessWidget {
   String status;
@@ -19,6 +22,7 @@ class NewDeliveryForm extends StatelessWidget {
   String sourceAddress;
   String deliveryAddress;
 
+  final Firestore db = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +76,20 @@ class NewDeliveryForm extends StatelessWidget {
                 title: 'Create request',
                 colour: Colors.deepOrange[200],
                 onPressed: () async {
+
+                  var data = {
+                    'status': 'new',
+                    'weight': this.weight,
+                    'volume': this.volume,
+                    'itemType': this.itemType,
+                    'rateForDelivery': 1.99,
+                    'deliveryPerson': null,
+                    'sourceAddress': this.sourceAddress,
+                    'deliveryAddress': this.deliveryAddress
+                  };
+
+                  var newItem = db.collection('items').document().setData(data);
+                  Navigator.pop(context, newItem);
 //                  Navigator.pushNamed(context, 'company_home_screen');
 
 //                    var response = await http.post(

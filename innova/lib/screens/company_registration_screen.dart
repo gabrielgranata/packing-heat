@@ -38,7 +38,7 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text.rich(
+              Text.rich(
                 TextSpan(
                   text: 'Register your company',
                   style: TextStyle(color: Colors.white, fontSize: 24),

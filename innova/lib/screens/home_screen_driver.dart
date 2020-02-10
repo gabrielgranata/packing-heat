@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:innova/screens/home_screen_business.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
+import 'package:innova/widgets/pill_button.dart';
 
 class DriverHomeScreen extends StatefulWidget {
   @override
@@ -29,16 +30,20 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
     return Scaffold(
       body: Column(
         children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 100, bottom: 20),
+              child: PillButton(
+                title: "Predict route for all jobs",
+                colour: Colors.lightBlueAccent,
+                onPressed: () async {
+                  await getRoute();
+                  Navigator.pushNamed(context, 'maps_screen', arguments: MapArgs(legs));
+                },
+              ),
+            ),
             Container (
               child: _children[_currentIndex],
             ),
-            RaisedButton(
-              onPressed: () async {
-              await getRoute();
-              Navigator.pushNamed(context, 'maps_screen', arguments: MapArgs(legs));
-              },
-              child: Text("Start Driving"),
-            )
         ]
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -94,26 +99,26 @@ class DriverDeliveryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.lightBlue[200],
-      child: ListView(
-        /* TODO: get all delivery items from db for current status,
-            make new DeliveryListItem for each and display */
-          padding: const EdgeInsets.all(8),
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(15, 50, 15, 10),
-              child: Text.rich(
-                TextSpan(
-                  text: 'Available delivery jobs',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
+    return Expanded(
+      child: Container (
+        color: Colors.lightBlue[200],
+        child: ListView(
+            padding: EdgeInsets.all(8),
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(15, 50, 15, 10),
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Available delivery jobs',
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
                 ),
               ),
-            ),
-            DriverDeliveryListItem(13.23, 5.00, 2.3, "Small Box"),
-            DriverDeliveryListItem(15.00, 5.00, 2.3, "Large Box"),
-          ]
-      ),
+              DriverDeliveryListItem(13.23, 5.00, 2.3, "Small Box"),
+              DriverDeliveryListItem(15.00, 5.00, 2.3, "Large Box"),
+            ]
+        ),
+      )
     );
   }
 }

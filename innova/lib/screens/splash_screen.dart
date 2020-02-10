@@ -22,7 +22,7 @@ class SplashScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'App Name',
+                          'PackinHeat',
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
@@ -38,27 +38,36 @@ class SplashScreen extends StatelessWidget {
                       Navigator.pushNamed(context, 'login_screen');
                     },
                   ),
-                  Text.rich(
-                    TextSpan(
-                      text: 'Register'
-                    )
+                  Container(
+                    padding: EdgeInsets.only(top: 16.0),
+                    child: Text.rich(
+                        TextSpan(
+                            text: 'Register'
+                        )
+                    ),
                   ),
                   Column (
                     children: <Widget>[
-                      PillButton(
-                        title: 'Register as Driver',
-                        colour: Colors.lightBlueAccent,
-                        onPressed: (){
-                          Navigator.pushNamed(context, 'register_screen');
-                        },
+                      Container(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: PillButton(
+                          title: 'Register as Driver',
+                          colour: Colors.lightBlueAccent,
+                          onPressed: (){
+                            Navigator.pushNamed(context, 'register_screen');
+                          },
+                        ),
                       ),
-                        PillButton(
+                      Container(
+                        padding: EdgeInsets.all(0),
+                        child: PillButton(
                         title: 'Register as Business',
                         colour: Colors.lightBlueAccent,
                         onPressed: (){
                           Navigator.pushNamed(context, 'company_register_screen');
                         },
-                      )
+                      ),
+                        )
                     ]
                   )
                 ],

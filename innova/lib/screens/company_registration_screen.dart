@@ -31,20 +31,21 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[200],
+      backgroundColor: Colors.lightBlue[200],
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text.rich(
+              Text.rich(
                 TextSpan(
                   text: 'Register your company',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
                 )
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(15, 15, 15, 10),
+                margin: EdgeInsets.fromLTRB(15, 20, 15, 10),
                 child: TextField(
                     textAlign: TextAlign.center,
                     decoration: InputDecorationWrapper(
@@ -64,8 +65,8 @@ class _CompanyRegistrationScreenState extends State<CompanyRegistrationScreen> {
                       companyEmail = value;
                     }),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+              Container(
+                margin: EdgeInsets.fromLTRB(15, 5, 15, 10),
                 child: TextField(
                   obscureText: false,
                   textAlign: TextAlign.center,
